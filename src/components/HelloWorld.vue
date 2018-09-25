@@ -1,113 +1,76 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+    <!--加密-->
+        <div class="example-box">
+            <div class="title">加密示例</div>
+            <p class="msg">明文：{{ msg }}</p>
+            <button class="encrypt-btn" @click="encrypt">加密</button>
+            <p class="msg">{{ encryptMsg }}</p>
+        </div>
+        <!--解密-->
+        <div class="example-box">
+            <div class="title">解密示例</div>
+            <button class="encrypt-btn" @click="decrypt">解密</button>
+            <p class="msg">{{ decryptMsg }}</p>
+        </div>
   </div>
 </template>
 
 <script>
+import secret from "../utils/secret";
+
 export default {
-  name: 'HelloWorld',
-  data () {
+  name: "HelloWorld",
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      key: "0000000000000000",
+      msg: "我爱你",
+      encryptMsg: "",
+      decryptMsg: ""
+    };
+  },
+  methods: {
+    encrypt() {
+      this.encryptMsg = secret.Encrypt(this.msg, this.key);
+    },
+    decrypt() {
+      this.decryptMsg = secret.Decrypt(this.encryptMsg, this.key);
     }
   }
-}
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.msg {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+  min-width: 40px;
+  line-height: 40px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.encrypt-btn {
+  display: block;
+  margin: 15px auto;
+  font-size: 14px;
+  padding: 10px 15px;
+  text-align: center;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  background-color: #409eff;
+  -webkit-appearance: none;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  min-width: 100px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.example-box {
+  margin: 100px auto 0;
 }
-a {
-  color: #42b983;
+.example-box .title {
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+  font-weight: bold;
 }
 </style>
